@@ -83,9 +83,7 @@ void setup()
   // this can be achieved manually as follows
   // if Artnet packet comes to this universe, this function (lambda) is called
 
-
-
-  // artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) { 
+  // artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) {
 
   // for (size_t pixel = 0; pixel < 50; ++pixel)
   // {
@@ -109,33 +107,36 @@ void loop()
 
   int m1 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
 
-  // // for (int i = STRANDCNT; i > 0; i--) {
-  // //   randomStrands(strands, i, 0, 1000);
-  // // }
-
-  // // for (int i = STRANDCNT; i > 0; i--) {
-  // //   randomStrands(strands, i, 2000, 100);
-  // // }
-
-  // for (int i = STRANDCNT; i > 0; i--)
-  // {
-  //   scanners(strands, i, 50, 10000);
-  // }
-
-  for (int i = STRANDCNT; i >= 0; i--) {
-    rainbows(strands, i, 10, 40000);
+  for (int i = STRANDCNT; i > 0; i--)
+  {
+    randomStrands(strands, i, 10, 1000);
   }
 
-  // // int m2 = getMaxMalloc(1*1024, 16*1024*1024);
-  // // assert(m2 >= m1); // Sanity check
+  for (int i = STRANDCNT; i > 0; i--)
+  {
+    randomStrands(strands, i, 10, 1000);
+  }
 
-  // // for (int i = 0; i < STRANDCNT; i++) {
-  // //   strand_t * pStrand = &STRANDS[i];
-  // //   rainbow(pStrand, 0, 2000);
-  // //   scanner(pStrand, 0, 2000);
-  // // }
+  for (int i = STRANDCNT; i > 0; i--)
+  {
+    scanners(strands, i, 10, 1000);
+  }
+
+  for (int i = STRANDCNT; i >= 0; i--)
+  {
+    rainbows(strands, i, 10, 1000);
+  }
+
+  int m2 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
+  assert(m2 >= m1); // Sanity check
+
+  for (int i = 0; i < STRANDCNT; i++)
+  {
+    strand_t *pStrand = &STRANDS[i];
+    rainbow(pStrand, 10, 2000);
+    scanner(pStrand, 10, 2000);
+  }
   digitalLeds_resetPixels(strands, STRANDCNT);
-  // Serial.println(" LOOP ");
 
 #if DEBUG_ESP32_DIGITAL_LED_LIB
   dumpDebugBuffer(0, digitalLeds_debugBuffer);
