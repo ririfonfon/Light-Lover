@@ -51,7 +51,7 @@ void simpleStepper(strand_t * strands [], int numStrands, unsigned long delay_ms
   unsigned long start_ms = millis();
   while (timeout_ms == 0 || (millis() - start_ms < timeout_ms)) {
     strand_t * strand = strands[0];
-    strand->pixels[stepper] = pixelFromRGBW(colord, colord, colord, 0);
+    strand->pixels[stepper] = pixelFromRGBW(colord, 0, colord, colord);
 
     stepper++;
     if(stepper > strand->numPixels) {
