@@ -110,7 +110,7 @@ const ledParams_t ledParamsAll[] = {  // Still must match order of `led_types`
   [LED_WS2813_V1]  = { .bytesPerPixel = 3, .T0H = 350, .T1H = 800, .T0L = 350, .T1L = 350, .TRS = 300000}, // Older datasheet
   [LED_WS2813_V2]  = { .bytesPerPixel = 3, .T0H = 270, .T1H = 800, .T0L = 800, .T1L = 270, .TRS = 300000}, // 2016 datasheet
   [LED_WS2813_V3]  = { .bytesPerPixel = 3, .T0H = 270, .T1H = 630, .T0L = 630, .T1L = 270, .TRS = 300000}, // 2017-05 WS datasheet
-  [LED_WS2814A_V1]  = { .bytesPerPixel = 4, .T0H = 300, .T1H = 600, .T0L = 900, .T1L = 600, .TRS = 300000}, // 2023-10 WS datasheet
+  [LED_WS2814A_V1]  = { .bytesPerPixel = 4, .T0H = 300, .T1H = 790, .T0L = 790, .T1L = 790, .TRS = 280000}, // 2023-10 WS datasheet
   [LED_SK6812_V1]  = { .bytesPerPixel = 3, .T0H = 300, .T1H = 600, .T0L = 900, .T1L = 600, .TRS =  80000}, // Various, all consistent
   [LED_SK6812W_V1] = { .bytesPerPixel = 4, .T0H = 300, .T1H = 600, .T0L = 900, .T1L = 600, .TRS =  80000}, // Various, all consistent
 };
