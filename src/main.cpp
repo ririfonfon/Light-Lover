@@ -42,7 +42,7 @@ const IPAddress gateway(2, 0, 0, 1);
 const IPAddress subnet(255, 255, 255, 0);
 
 ArtnetWiFiReceiver artnet;
-uint8_t universe = 1; // 0 - 15
+uint8_t universe = 0; // 0 - 15
 
 void setup()
 {
@@ -82,29 +82,32 @@ void setup()
 
   // this can be achieved manually as follows
   // if Artnet packet comes to this universe, this function (lambda) is called
-  artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) {
 
-  for (size_t pixel = 0; pixel < 50; ++pixel)
-  {
-    strand_t *strand[STRANDCNT];
-    size_t idx = pixel * 4;
 
-    strand[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0],data[idx + 1], data[idx + 2], data[idx + 4]);
-  }
-     }
-     );
+
+  // artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) { 
+
+  // for (size_t pixel = 0; pixel < 50; ++pixel)
+  // {
+  //   strand_t *strand[STRANDCNT];
+  //   size_t idx = pixel * 4;
+
+  //   strand[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0],data[idx + 1], data[idx + 2], data[idx + 3]);
+  // }
+  //    }
+  //    );
 }
 
 //**************************************************************************//
 void loop()
 {
-  // strand_t *strands[STRANDCNT];
-  // for (int i = 0; i < STRANDCNT; i++)
-  // {
-  //   strands[i] = &STRANDS[i];
-  // }
+  strand_t *strands[STRANDCNT];
+  for (int i = 0; i < STRANDCNT; i++)
+  {
+    strands[i] = &STRANDS[i];
+  }
 
-  // int m1 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
+  int m1 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
 
   // // for (int i = STRANDCNT; i > 0; i--) {
   // //   randomStrands(strands, i, 0, 1000);
@@ -119,9 +122,9 @@ void loop()
   //   scanners(strands, i, 50, 10000);
   // }
 
-  // // for (int i = STRANDCNT; i >= 0; i--) {
-  // //   rainbows(strands, i, 10, 40000);
-  // // }
+  for (int i = STRANDCNT; i >= 0; i--) {
+    rainbows(strands, i, 10, 40000);
+  }
 
   // // int m2 = getMaxMalloc(1*1024, 16*1024*1024);
   // // assert(m2 >= m1); // Sanity check
@@ -131,7 +134,7 @@ void loop()
   // //   rainbow(pStrand, 0, 2000);
   // //   scanner(pStrand, 0, 2000);
   // // }
-  // digitalLeds_resetPixels(strands, STRANDCNT);
+  digitalLeds_resetPixels(strands, STRANDCNT);
   // Serial.println(" LOOP ");
 
 #if DEBUG_ESP32_DIGITAL_LED_LIB
