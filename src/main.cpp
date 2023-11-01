@@ -107,35 +107,35 @@ void loop()
 
   int m1 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
 
-  for (int i = STRANDCNT; i > 0; i--)
-  {
-    randomStrands(strands, i, 10, 1000);
-  }
+  // for (int i = STRANDCNT; i > 0; i--)
+  // {
+  //   randomStrands(strands, i, 10, 1000);
+  // }
 
-  for (int i = STRANDCNT; i > 0; i--)
-  {
-    randomStrands(strands, i, 10, 1000);
-  }
+  // for (int i = STRANDCNT; i > 0; i--)
+  // {
+  //   randomStrands(strands, i, 10, 1000);
+  // }
 
-  for (int i = STRANDCNT; i > 0; i--)
-  {
-    scanners(strands, i, 10, 1000);
-  }
+  // for (int i = STRANDCNT; i > 0; i--)
+  // {
+  //   scanners(strands, i, 10, 1000);
+  // }
 
   for (int i = STRANDCNT; i >= 0; i--)
   {
     rainbows(strands, i, 10, 1000);
   }
 
-  int m2 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
-  assert(m2 >= m1); // Sanity check
+  // int m2 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
+  // assert(m2 >= m1); // Sanity check
 
-  for (int i = 0; i < STRANDCNT; i++)
-  {
-    strand_t *pStrand = &STRANDS[i];
-    rainbow(pStrand, 10, 2000);
-    scanner(pStrand, 10, 2000);
-  }
+  // for (int i = 0; i < STRANDCNT; i++)
+  // {
+  //   strand_t *pStrand = &STRANDS[i];
+  //   rainbow(pStrand, 10, 2000);
+  //   scanner(pStrand, 10, 2000);
+  // }
   digitalLeds_resetPixels(strands, STRANDCNT);
 
 #if DEBUG_ESP32_DIGITAL_LED_LIB
