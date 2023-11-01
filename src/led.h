@@ -23,11 +23,11 @@
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"  // It's noisy here with `-Wall`
 
 strand_t STRANDS[] = { // Avoid using any of the strapping pins on the ESP32, anything >=32, 16, 17... not much left.
-  {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
-  {.rmtChannel = 1, .gpioNum = 2, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
-  {.rmtChannel = 2, .gpioNum = 4, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
-  {.rmtChannel = 3, .gpioNum = 16, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
-  {.rmtChannel = 4, .gpioNum = 17, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
+  {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_WS2814A_V1, .brightLimit = 255, .numPixels =  15},
+  {.rmtChannel = 1, .gpioNum = 4, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
+  {.rmtChannel = 2, .gpioNum = 16, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
+  {.rmtChannel = 3, .gpioNum = 17, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
+  {.rmtChannel = 4, .gpioNum = 18, .ledType = LED_WS2814A_V1, .brightLimit = 24, .numPixels =  15},
 };
 //  {.rmtChannel = 0, .gpioNum = 14, .ledType = LED_SK6812W_V1, .brightLimit = 24, .numPixels =  144},
 //  {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_SK6812W_V1, .brightLimit = 24, .numPixels =  50},
