@@ -183,7 +183,8 @@ void scanner(strand_t * pStrand, unsigned long delay_ms, unsigned long timeout_m
 class Rainbower {
   private:
     strand_t * pStrand;
-    const uint8_t color_div = 4;
+    const uint8_t color_div = 1;
+    // const uint8_t color_div = 4;
     const uint8_t anim_step = 1;
     uint8_t anim_max;
     uint8_t stepVal1;
@@ -202,8 +203,10 @@ Rainbower::Rainbower(strand_t * pStrandIn)
   anim_max = pStrand->brightLimit - anim_step;
   stepVal1 = 0;
   stepVal2 = 0;
-  color1 = pixelFromRGBW(anim_max, 0, 0, 0);
-  color2 = pixelFromRGBW(anim_max, 0, 0, 0);
+  // color1 = pixelFromRGBW(anim_max, 0, 0, 0);
+  // color2 = pixelFromRGBW(anim_max, 0, 0, 0);
+  color1 = pixelFromRGBW(0, 0, 0, 0);
+  color2 = pixelFromRGBW(0, 0, 0, 0);
 }
 
 
@@ -212,7 +215,7 @@ void Rainbower::prepareNext()
   color1 = color2;
   stepVal1 = stepVal2;
   for (uint16_t i = 0; i < pStrand->numPixels; i++) {
-    pStrand->pixels[i] = pixelFromRGBW(color1.r/color_div, 0, color1.g/color_div, color1.b/color_div);
+    pStrand->pixels[i] = pixelFromRGBW(color1.r/color_div, color1.w/color_div, color1.g/color_div, color1.b/color_div);
     // pStrand->pixels[i] = pixelFromRGBW(color1.r/color_div, color1.g/color_div, color1.b/color_div, 0);
     if (i == 1) {
       color2 = color1;
@@ -247,6 +250,16 @@ void Rainbower::prepareNext()
       case 5:
       color1.b -= anim_step;
       if (color1.b == 0)
+        stepVal1++;
+      break;
+      case 6:
+      color1.w += anim_step;
+      if (color1.w >= anim_max)
+        stepVal1++;
+      break;
+      case 7:
+      color1.w -= anim_step;
+      if (color1.w == 0)
         stepVal1 = 0;
       break;
     }
