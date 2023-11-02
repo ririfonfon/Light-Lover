@@ -121,10 +121,12 @@ void loop()
   // {
   //   scanners(strands, i, 10, 1000);
   // }
-
-  for (int i = STRANDCNT; i >= 0; i--)
+ 
+  // rainbows(strands, STRANDCNT, 10, 1000000);
+  
+   for (int i = STRANDCNT; i >= 0; i--)
   {
-    rainbows(strands, i, 10, 1000);
+    rainbows(strands, i, 0, 3000);
   }
 
   // int m2 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
