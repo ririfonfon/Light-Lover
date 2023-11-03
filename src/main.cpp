@@ -83,17 +83,17 @@ void setup()
   // this can be achieved manually as follows
   // if Artnet packet comes to this universe, this function (lambda) is called
 
-  // artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) {
+  artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) {
 
-  // for (size_t pixel = 0; pixel < 50; ++pixel)
-  // {
-  //   strand_t *strand[STRANDCNT];
-  //   size_t idx = pixel * 4;
+  for (size_t pixel = 0; pixel < 50; ++pixel)
+  {
+    strand_t *strand[STRANDCNT];
+    size_t idx = pixel * 4;
 
-  //   strand[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0],data[idx + 1], data[idx + 2], data[idx + 3]);
-  // }
-  //    }
-  //    );
+    strand[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0],data[idx + 1], data[idx + 2], data[idx + 3]);
+  }
+     }
+     );
 }
 
 //**************************************************************************//
