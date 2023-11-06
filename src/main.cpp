@@ -5,25 +5,48 @@
 #include "led.h"
 #include <ArtnetWiFi.h>
 
+#define ID 1
+
 // WiFi stuff
 const char *ssid = "riri_new";
 const char *pwd = "B2az41opbn6397";
-const IPAddress ip(2, 0, 0, 201);
+const IPAddress ip(2, 0, 0, 200 + ID);
 const IPAddress gateway(2, 0, 0, 1);
 const IPAddress subnet(255, 255, 255, 0);
 
+uint8_t universe = 3;
+
+#define ch_start ID%8 * 60 - 59
+
 ArtnetWiFiReceiver artnet;
-uint8_t universe = 0; // 0 - 15
 
 strand_t *strands[STRANDCNT];
 
 void onArtnet(const uint8_t *data, const uint16_t length)
 {
-  for (size_t pixel = 0; pixel < STRANDS[0].numPixels; pixel++)
+  for (uint8_t str = 0; str < STRANDCNT; str++)
   {
-    size_t idx = pixel * 4;
-    if (idx + 3 < length)
-      strands[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0], data[idx + 1], data[idx + 2], data[idx + 3]);
+    size_t idx;
+    for (size_t pixel = 0; pixel < STRANDS[str].numPixels; pixel++)
+    {
+      // size_t idx = pixel * 4;
+      if (pixel < 5)
+      {
+        idx = ch_start + 12 * str - 1;
+      }
+      else if (pixel > 4 && pixel < 10)
+      {
+        idx = ch_start + 4 + 12 * str - 1;
+      }
+      else if (pixel > 9)
+      {
+        idx = ch_start + 8 + 12 * str - 1;
+      }
+      if (idx + 3 < length)
+      {
+        strands[str]->pixels[pixel] = pixelFromRGBW(data[idx + 0], data[idx + 1], data[idx + 2], data[idx + 3]);
+      }
+    }
   }
   digitalLeds_drawPixels(strands, STRANDCNT);
   // Serial.printf("Artnet recv %d\n", length);
@@ -44,6 +67,20 @@ void setup()
       delay(100);
     }
   }
+
+  if (ID < 9)
+  {
+    universe = 0; // 0 - 15
+  }
+  else if (ID > 8 && ID < 17)
+  {
+    universe = 1; // 0 - 15
+  }
+  else if (ID > 16)
+  {
+    universe = 2; // 0 - 15
+  }
+
   for (int i = 0; i < STRANDCNT; i++)
     strands[i] = &STRANDS[i];
   digitalLeds_resetPixels(strands, STRANDCNT);
@@ -61,8 +98,9 @@ void setup()
   Serial.print("WiFi connected, IP = ");
   Serial.println(WiFi.localIP());
 
-  artnet.shortname("Super");
-  artnet.longname("Super Genial");
+  String NAME = "L_LOVER " + String(ID);
+  artnet.shortname(NAME);
+  artnet.longname(NAME);
 
   artnet.begin();
   artnet.subscribe(universe, onArtnet);
@@ -72,4 +110,3 @@ void loop()
 {
   artnet.parse();
 }
-
