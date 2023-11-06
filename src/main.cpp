@@ -35,14 +35,30 @@
 
 #include <ArtnetWiFi.h>
 // WiFi stuff
-const char *ssid = "riri_new";
-const char *pwd = "B2az41opbn6397";
+// const char *ssid = "riri_new";
+// const char *pwd = "B2az41opbn6397";
+const char *ssid = "kxkm24";
+const char *pwd = "";
 const IPAddress ip(2, 0, 0, 201);
 const IPAddress gateway(2, 0, 0, 1);
 const IPAddress subnet(255, 255, 255, 0);
 
 ArtnetWiFiReceiver artnet;
 uint8_t universe = 0; // 0 - 15
+
+strand_t *strands[STRANDCNT];
+
+void onArtnet(const uint8_t* data, const uint16_t length)
+{
+    for (size_t pixel = 0; pixel < STRANDS[0].numPixels; pixel++)
+    {
+        size_t idx = pixel * 4;
+        if (idx + 3 < length) 
+            strands[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0],data[idx + 1], data[idx + 2], data[idx + 3]);
+    }
+    digitalLeds_drawPixels(strands, STRANDCNT);
+    // Serial.printf("Artnet recv %d\n", length);
+}
 
 void setup()
 {
@@ -59,6 +75,8 @@ void setup()
       delay(100);
     }
   }
+  for (int i = 0; i < STRANDCNT; i++) strands[i] = &STRANDS[i];
+  digitalLeds_resetPixels(strands, STRANDCNT);
   delay(100);
   Serial.println("Init complete");
 
@@ -73,6 +91,9 @@ void setup()
   Serial.print("WiFi connected, IP = ");
   Serial.println(WiFi.localIP());
 
+    artnet.shortname("Super");
+    artnet.longname("Super Genial");
+
   artnet.begin();
   // artnet.subscribe_net(0);     // optionally you can change
   // artnet.subscribe_subnet(0);  // optionally you can change
@@ -83,66 +104,52 @@ void setup()
   // this can be achieved manually as follows
   // if Artnet packet comes to this universe, this function (lambda) is called
 
-  artnet.subscribe(universe, [&](uint8_t *data, uint16_t size) {
-
-  for (size_t pixel = 0; pixel < 50; ++pixel)
-  {
-    strand_t *strand[STRANDCNT];
-    size_t idx = pixel * 4;
-
-    strand[0]->pixels[pixel] = pixelFromRGBW(data[idx + 0],data[idx + 1], data[idx + 2], data[idx + 3]);
-  }
-     }
-     );
+  artnet.subscribe(universe, onArtnet);
 }
 
 //**************************************************************************//
 void loop()
 {
-  strand_t *strands[STRANDCNT];
-  for (int i = 0; i < STRANDCNT; i++)
-  {
-    strands[i] = &STRANDS[i];
-  }
+  artnet.parse();
 
-  int m1 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
+//   int m1 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
 
-  // for (int i = STRANDCNT; i > 0; i--)
-  // {
-  //   randomStrands(strands, i, 10, 1000);
-  // }
+//   // for (int i = STRANDCNT; i > 0; i--)
+//   // {
+//   //   randomStrands(strands, i, 10, 1000);
+//   // }
 
-  // for (int i = STRANDCNT; i > 0; i--)
-  // {
-  //   randomStrands(strands, i, 10, 1000);
-  // }
+//   // for (int i = STRANDCNT; i > 0; i--)
+//   // {
+//   //   randomStrands(strands, i, 10, 1000);
+//   // }
 
-  // for (int i = STRANDCNT; i > 0; i--)
-  // {
-  //   scanners(strands, i, 10, 1000);
-  // }
+//   // for (int i = STRANDCNT; i > 0; i--)
+//   // {
+//   //   scanners(strands, i, 10, 1000);
+//   // }
  
-  // rainbows(strands, STRANDCNT, 10, 1000000);
+//   // rainbows(strands, STRANDCNT, 10, 1000000);
   
-   for (int i = STRANDCNT; i >= 0; i--)
-  {
-    rainbows(strands, i, 0, 3000);
-  }
+//    for (int i = STRANDCNT; i >= 0; i--)
+//   {
+//     rainbows(strands, i, 0, 3000);
+//   }
 
-  // int m2 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
-  // assert(m2 >= m1); // Sanity check
+//   // int m2 = getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
+//   // assert(m2 >= m1); // Sanity check
 
-  // for (int i = 0; i < STRANDCNT; i++)
-  // {
-  //   strand_t *pStrand = &STRANDS[i];
-  //   rainbow(pStrand, 10, 2000);
-  //   scanner(pStrand, 10, 2000);
-  // }
-  digitalLeds_resetPixels(strands, STRANDCNT);
+//   // for (int i = 0; i < STRANDCNT; i++)
+//   // {
+//   //   strand_t *pStrand = &STRANDS[i];
+//   //   rainbow(pStrand, 10, 2000);
+//   //   scanner(pStrand, 10, 2000);
+//   // }
+//   digitalLeds_resetPixels(strands, STRANDCNT);
 
-#if DEBUG_ESP32_DIGITAL_LED_LIB
-  dumpDebugBuffer(0, digitalLeds_debugBuffer);
-#endif
+// #if DEBUG_ESP32_DIGITAL_LED_LIB
+//   dumpDebugBuffer(0, digitalLeds_debugBuffer);
+// #endif
 }
 
 //**************************************************************************//

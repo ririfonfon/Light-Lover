@@ -22,7 +22,9 @@
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wmissing-field-initializers"  // It's noisy here with `-Wall`
 
-strand_t STRANDS[] = { // Avoid using any of the strapping pins on the ESP32, anything >=32, 16, 17... not much left.
+const int STRANDCNT = 5;
+
+strand_t STRANDS[STRANDCNT] = { // Avoid using any of the strapping pins on the ESP32, anything >=32, 16, 17... not much left.
   {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels =  15},
   {.rmtChannel = 1, .gpioNum =  4, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels =  15},
   {.rmtChannel = 2, .gpioNum = 16, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels =  15},
@@ -44,7 +46,6 @@ strand_t STRANDS[] = { // Avoid using any of the strapping pins on the ESP32, an
 
 #pragma GCC diagnostic pop
 
-int STRANDCNT = COUNT_OF(STRANDS);
 
 
 //**************************************************************************//
