@@ -16,7 +16,7 @@ const IPAddress subnet(255, 255, 255, 0);
 
 uint8_t universe = 3;
 
-#define ch_start ID%8 * 60 - 59
+#define ch_start ID % 8 * 60 - 59
 
 ArtnetWiFiReceiver artnet;
 
@@ -58,6 +58,9 @@ void setup()
   Serial.println("Initializing...");
   dumpSysInfo();
   getMaxMalloc(1 * 1024, 16 * 1024 * 1024);
+
+  // init led
+  init_led();
 
   if (!initStrands())
   {
@@ -109,4 +112,6 @@ void setup()
 void loop()
 {
   artnet.parse();
+  onboard_led.on = millis() % 2000 < 1000;
+  onboard_led.update();
 }
