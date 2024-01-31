@@ -24,11 +24,16 @@ const int STRANDCNT = 5;
 
 strand_t STRANDS[STRANDCNT] = {
     // Avoid using any of the strapping pins on the ESP32, anything >=32, 16, 17... not much left.
-    {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
-    {.rmtChannel = 1, .gpioNum = 4, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
-    {.rmtChannel = 2, .gpioNum = 16, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
-    {.rmtChannel = 3, .gpioNum = 17, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
-    {.rmtChannel = 4, .gpioNum = 18, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
+    // {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
+    // {.rmtChannel = 1, .gpioNum =  4, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
+    // {.rmtChannel = 2, .gpioNum = 16, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
+    // {.rmtChannel = 3, .gpioNum = 17, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
+    // {.rmtChannel = 4, .gpioNum = 18, .ledType = LED_WS2814A_V1, .brightLimit = 254, .numPixels = 15},
+    {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_WS2814A_V1, .numPixels = 15},
+    {.rmtChannel = 1, .gpioNum =  4, .ledType = LED_WS2814A_V1, .numPixels = 15},
+    {.rmtChannel = 2, .gpioNum = 16, .ledType = LED_WS2814A_V1, .numPixels = 15},
+    {.rmtChannel = 3, .gpioNum = 17, .ledType = LED_WS2814A_V1, .numPixels = 15},
+    {.rmtChannel = 4, .gpioNum = 18, .ledType = LED_WS2814A_V1, .numPixels = 15},
 };
 //  {.rmtChannel = 0, .gpioNum = 14, .ledType = LED_SK6812W_V1, .brightLimit = 24, .numPixels =  144},
 //  {.rmtChannel = 0, .gpioNum = 15, .ledType = LED_SK6812W_V1, .brightLimit = 24, .numPixels =  50},
