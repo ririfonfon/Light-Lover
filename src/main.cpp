@@ -79,10 +79,19 @@ void setup()
   {
     universe = 1; // 0 - 15
   }
-  else if (ID > 16)
+  else if (ID > 16 && ID < 25)
   {
     universe = 2; // 0 - 15
   }
+  else if (ID > 24 && ID < 33)
+  {
+    universe = 3; // 0 - 15
+  }
+  else if (ID > 32 && ID < 36)
+  {
+    universe = 4; // 0 - 15
+  }
+
 
   for (int i = 0; i < STRANDCNT; i++)
     strands[i] = &STRANDS[i];
@@ -114,4 +123,5 @@ void loop()
   artnet.parse();
   onboard_led.on = millis() % 2000 < 1000;
   onboard_led.update();
+  delay(10); // est ce vraiment utile ???
 }
