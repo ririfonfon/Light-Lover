@@ -8,15 +8,18 @@
 #define ID 1
 
 // WiFi stuff
-const char *ssid = "riri_new";
-const char *pwd = "B2az41opbn6397";
+// const char *ssid = "riri_new";
+// const char *pwd = "B2az41opbn6397";
+const char *ssid = "kxkm24";
+const char *pwd = "";
 const IPAddress ip(2, 0, 0, 200 + ID);
 const IPAddress gateway(2, 0, 0, 1);
 const IPAddress subnet(255, 255, 255, 0);
 
-uint8_t universe = 3;
+uint8_t universe;
 
-#define ch_start ID % 8 * 60 - 59
+uint16_t ch_start;
+uint8_t Modulo;
 
 ArtnetWiFiReceiver artnet;
 
@@ -71,27 +74,37 @@ void setup()
     }
   }
 
+  Modulo = ID % 8;
+  if(Modulo == 0)
+  {
+    Modulo = 8;
+  }
+  ch_start = Modulo * 60 - 59;
+  Serial.print("ch_start = ");
+  Serial.println(ch_start);
+
   if (ID < 9)
   {
-    universe = 0; // 0 - 15
+    universe = 0; // 1 - 8
   }
   else if (ID > 8 && ID < 17)
   {
-    universe = 1; // 0 - 15
+    universe = 1; // 9 - 16
   }
   else if (ID > 16 && ID < 25)
   {
-    universe = 2; // 0 - 15
+    universe = 2; // 17 - 24
   }
   else if (ID > 24 && ID < 33)
   {
-    universe = 3; // 0 - 15
+    universe = 3; // 25 - 32
   }
-  else if (ID > 32 && ID < 36)
+  else if (ID > 32 && ID < 41)
   {
-    universe = 4; // 0 - 15
+    universe = 4; // 33 - 40
   }
-
+  Serial.print("universe = ");
+  Serial.println(universe);
 
   for (int i = 0; i < STRANDCNT; i++)
     strands[i] = &STRANDS[i];
