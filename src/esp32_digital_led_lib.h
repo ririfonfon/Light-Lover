@@ -122,7 +122,8 @@ extern "C"
       // [LED_WS2814A_V1]  = { .bytesPerPixel = 4, .T0H = 300, .T1H = 790, .T0L = 790, .T1L = 790, .TRS = 280000}, // 2023-10 WS datasheet origine
       // [LED_WS2814A_V1]  = { .bytesPerPixel = 4, .T0H = 300, .T1H = 790, .T0L = 790, .T1L = 790, .TRS = 300000}, // 2023-10 WS datasheet origine modif
       // [LED_WS2814A_V1]  = { .bytesPerPixel = 4, .T0H = 300, .T1H = 650, .T0L = 900, .T1L = 600, .TRS = 300000}, // 2023-10 WS datasheet modif ???
-      [LED_WS2814A_V1] = {.bytesPerPixel = 4, .T0H = 360, .T1H = 910, .T0L = 910, .T1L = 360, .TRS = 296000}, // 2023-10 WS datasheet modif GOOD
+      // [LED_WS2814A_V1] = {.bytesPerPixel = 4, .T0H = 360, .T1H = 910, .T0L = 910, .T1L = 360, .TRS = 296000}, // 2023-10 WS datasheet modif GOOD
+      [LED_WS2814A_V1] = {.bytesPerPixel = 4, .T0H = 350, .T1H = 900, .T0L = 925, .T1L = 365, .TRS = 294000}, // 2023-10 WS datasheet modif GOOD
   };
 
   extern void espPinMode(int pinNum, int pinDir);
