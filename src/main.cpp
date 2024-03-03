@@ -8,10 +8,10 @@
 #define ID 1
 
 // WiFi stuff
-// const char *ssid = "riri_new";
-// const char *pwd = "B2az41opbn6397";
-const char *ssid = "kxkm24";
-const char *pwd = "";
+const char *ssid = "riri_new";
+const char *pwd = "B2az41opbn6397";
+// const char *ssid = "kxkm24";
+// const char *pwd = "";
 const IPAddress ip(2, 0, 0, 200 + ID);
 const IPAddress gateway(2, 0, 0, 1);
 const IPAddress subnet(255, 255, 255, 0);
